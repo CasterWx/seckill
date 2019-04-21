@@ -1,5 +1,6 @@
 package com.seckill.test;
 
+import com.seckill.mapper.PersonMapper;
 import com.seckill.param.Person;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -29,13 +30,14 @@ public class TestMyBatis {
     @Test
     public void testInsert() throws IOException {
         Person person = new Person() ;
-        person.setName("ÇåË®2");
+        person.setName("ãöð°");
         person.setAddress("¿ª·â");
-        person.setAge(21);
+        person.setAge(13);
         person.setBirthday("2018-05-21-20:21");
         SqlSessionFactory factory = getFactory() ;
         SqlSession sqlSession = factory.openSession() ;
-        sqlSession.insert("test1.insertpersonperson",person) ;
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class) ;
+        personMapper.insertpersonperson(person);
         sqlSession.commit();
         sqlSession.close();
     }
@@ -43,7 +45,7 @@ public class TestMyBatis {
     @Test
     public void testQueryId() throws IOException {
         SqlSession sqlSession = getFactory().openSession() ;
-        Person person = sqlSession.selectOne("test1.querypersonbyid",1);
+        Person person = sqlSession.selectOne("querypersonbyid",2);
         System.out.println(person);
         sqlSession.close();
     }
